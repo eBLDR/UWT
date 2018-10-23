@@ -12,5 +12,8 @@ VENV/
 ENV/
 .ENV/
 
+# Logs
+*.log
+
 # Code editor
 .idea/
