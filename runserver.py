@@ -1,4 +1,7 @@
-from uwt.persistence import engine
+#! /usr/bin/python
+#! -*- coding: utf8 -*-
 
-print(engine.ENGINE)
+if __name__ == '__main__':
+	from uwt.persistence import engine
+	print(engine.ENGINE)
 
