@@ -8,5 +8,3 @@ try:
 except ImportError as e:
     raise RuntimeError('Unable to import config module {}'.format(ENVIRONMENT))
 
-# TODO: update globals() with var in configmodule
-
