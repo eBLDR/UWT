@@ -8,3 +8,6 @@ SQLALCHEMY_DATABASE_URI = 'mysql://{user}:{passwd}@{host}/{schema}?charset=utf8'
 # Flask App settings
 APP_HOST = '127.0.0.1'
 APP_PORT = 5000
+APP_TEMPLATES_FOLDER = 'templates'
+APP_API_URL_PREFIX = '/api'
+
