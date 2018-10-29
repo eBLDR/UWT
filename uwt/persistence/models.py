@@ -72,5 +72,3 @@ class EXERCISES_PARKOUR(CUSTOMBASE):
 
 # Tricking exercises missing
 
-# TODO: turn 'level' from Str to Integer - update 1+,2+,3+ to int seq
-
