@@ -53,12 +53,12 @@ class EXERCISES_CORE(CUSTOMBASE):
     id = Column(Integer, primary_key=True)
     group = Column(String(256), nullable=False)
     variation = Column(String(256), nullable=False)
-    upper = Column(Boolean, default=0)
-    lower = Column(Boolean, default=0)
-    oblique = Column(Boolean, default=0)
     level = Column(String(16))
     rep = Column(Boolean, default=0)
     time = Column(Boolean, default=0)
+    upper = Column(Boolean, default=0)
+    lower = Column(Boolean, default=0)
+    oblique = Column(Boolean, default=0)
     # Equipment missing
 
 

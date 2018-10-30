@@ -25,9 +25,9 @@ def session_manager(f):
 
 
 @session_manager
-def add_record(record):
+def create_record(record):
     """
-    Inserts new record into database.
+    Insert a new record into database.
     :param record: SQLAlchemy object
     """
     session.add(record)
@@ -46,7 +46,7 @@ def update_record(record, new_data):
 @session_manager
 def delete_record(record):
     """
-    Deletes a record from the database.
+    Delete a record from the database.
     :param record: SQLAlchemy object
     """
     session.delete(record)
