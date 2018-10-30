@@ -13,5 +13,5 @@ def not_found(error=None):
 @APP.route('/')
 @APP.route('/index')
 def index():
-    return 'OK'
+    return render_template('index.html')
 
