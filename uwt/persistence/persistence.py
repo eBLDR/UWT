@@ -51,3 +51,12 @@ def delete_record(record):
     """
     session.delete(record)
 
+
+def get_elements(sphere=None):
+    session = SESSION()
+    if sphere:
+        buff = session.query(ELEMENTS).filter(ELEMENTS.sphere == sphere.lower()).all()
+    else:
+        buff = session.query(ELEMENTS).all()
+    session.close()
+    return buff
