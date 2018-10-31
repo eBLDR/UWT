@@ -95,5 +95,13 @@ class EXERCISES_PARKOUR(CUSTOMBASE):
     variation = Column(String(256), nullable=False)
     level = Column(String(16))
 
-# Tricking exercises missing
 
+class USERS(CUSTOMBASE):
+    __tablename__ = 'USERS'
+    
+    id = Column(Integer, primary_key=True)
+    username = Column(String(256), nullable=False, unique=True)
+    password = Column(String(256), nullable=False)
+
+
+# Tricking exercises missing

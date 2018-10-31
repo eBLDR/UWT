@@ -52,6 +52,14 @@ def delete_record(record):
     session.delete(record)
 
 
+# QUERIES
+def get_user_by_username(username):
+    session = SESSION()
+    buff = session.query(USERS).filter(USERS.username == username).first()
+    session.close()
+    return buff
+
+
 def get_elements(sphere=None):
     session = SESSION()
     if sphere:
