@@ -26,3 +26,14 @@ def login():
             response = authentication.authenticate(username, password)
             return 'Success: {}\nReason: {}'.format(response['auth'], response['reason'])
     return render_template('login.html')
+
+
+@APP.route('/elements')
+def elements():
+    return 'OK'
+
+
+@APP.route('/disciplines')
+def disciplines():
+    return 'OK'
+
