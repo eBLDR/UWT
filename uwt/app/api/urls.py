@@ -25,7 +25,6 @@ def echo():
 @API.route('/elements/<sphere>', methods=['GET'])
 def elements(sphere=None):
     buff = persistence.get_elements(sphere=sphere)
-    print(type(buff[0]))
     return utils.to_json(buff)
 
 
