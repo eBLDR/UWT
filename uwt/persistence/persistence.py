@@ -50,6 +50,8 @@ def read(table_name, filters=None):
         if filters:
             buff = buff.filter_by(**filters)
         return buff.all()
+    except AttributeError:
+        logger.error('Table does not exist.')
     except Exception as exc:
         logger.error(exc)
     finally:
@@ -92,8 +94,8 @@ def get_elements(sphere=None):
     return read(table_name, filters=filters)
 
 
-def get_exercises_calisthenics(group=None):
-    table_name = 'EXERCISES_CALISTHENICS'
+def get_exercises_discipline(discipline, group=None):
+    table_name = 'EXERCISES_' + discipline.upper()
     filters = {}
     if group:
         filters['group'] = group
