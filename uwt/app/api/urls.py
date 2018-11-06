@@ -1,6 +1,7 @@
-from flask import json, request
+from flask import request
 
 from uwt.app.api import API
+from uwt.helpers import utils
 from uwt.persistence import persistence
 
 
@@ -17,11 +18,20 @@ def echo():
 	'status_code': 200
     }
 
-    return json.dumps(data)
+    return utils.to_json(data)
 
 
 @API.route('/elements', methods=['GET'])
-def elements():
-    buff = persistence.get_elements()
-    data = [record.to_dict() for record in buff] 
-    return json.dumps(data)
+@API.route('/elements/<sphere>', methods=['GET'])
+def elements(sphere=None):
+    buff = persistence.get_elements(sphere=sphere)
+    print(type(buff[0]))
+    return utils.to_json(buff)
+
+
+@API.route('/exercises/<discipline>', methods=['GET'])
+@API.route('/exercises/<discipline>/<group>', methods=['GET'])
+def exercises_calisthenics(discipline, group=None):
+    buff = persistence.get_exercises_discipline(discipline, group=group)
+    return utils.to_json(buff)
+
