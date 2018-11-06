@@ -1,8 +1,10 @@
 from functools import wraps
+from importlib import import_module
 
 from uwt.helpers.logger import logger
 from uwt.persistence.engine import SESSION
-from uwt.persistence.models import *
+
+MODELS = import_module('uwt.persistence.models')
 
 
 def session_manager(f):
@@ -14,7 +16,7 @@ def session_manager(f):
     def wrapper(*args, **kwargs):
         session = SESSION()
         try:
-            f()
+            f(*args, **kwargs)
             session.commit()
         except Exception as exc:
             logger.error(exc)
@@ -24,17 +26,38 @@ def session_manager(f):
     return wrapper
 
 
+# CRUD Transactions
 @session_manager
-def create_record(record):
+def create(record):
     """
     Insert a new record into database.
     :param record: SQLAlchemy object
     """
-    session.add(record)
+    session.add(record)  # TODO: check scope
+
+
+def read(table_name, filters=None):
+    """
+    Query records from database.
+    :param table: table name
+    :param filters: filters
+    :return: fetched data
+    """
+    session = SESSION()
+    try:
+        table = getattr(MODELS, table_name)
+        buff = session.query(table)
+        if filters:
+            buff = buff.filter_by(**filters)
+        return buff.all()
+    except Exception as exc:
+        logger.error(exc)
+    finally:
+        session.close()
 
 
 @session_manager
-def update_record(record, new_data):
+def update(record, new_data):
     """
     Update an existing record from the database.
     :param record: SQLAlchemy object
@@ -44,27 +67,35 @@ def update_record(record, new_data):
 
 
 @session_manager
-def delete_record(record):
+def delete(record):
     """
     Delete a record from the database.
     :param record: SQLAlchemy object
     """
-    session.delete(record)
+    session.delete(record)  # TODO: check scope
 
 
 # QUERIES
 def get_user_by_username(username):
-    session = SESSION()
-    buff = session.query(USERS).filter(USERS.username == username).first()
-    session.close()
-    return buff
+    table_name = 'USERS'
+    filters = {}
+    if username:
+        filters['username'] = username
+    return read(table_name, filters=filters)
 
 
 def get_elements(sphere=None):
-    session = SESSION()
+    table_name = 'ELEMENTS'
+    filters = {}
     if sphere:
-        buff = session.query(ELEMENTS).filter(ELEMENTS.sphere == sphere.lower()).all()
-    else:
-        buff = session.query(ELEMENTS).all()
-    session.close()
-    return buff
+        filters['sphere'] = sphere
+    return read(table_name, filters=filters)
+
+
+def get_exercises_calisthenics(group=None):
+    table_name = 'EXERCISES_CALISTHENICS'
+    filters = {}
+    if group:
+        filters['group'] = group
+    return read(table_name, filters=filters)
+
