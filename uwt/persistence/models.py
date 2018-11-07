@@ -48,7 +48,7 @@ class EXERCISES_CALISTHENICS(CUSTOMBASE):
     level = Column(String(16))
     rep = Column(Boolean, default=0)
     time = Column(Boolean, default=0)
-    ground = Column(Boolean, default=0)
+    floor = Column(Boolean, default=0)
     high_bar = Column(Boolean, default=0)
     medium_bar = Column(Boolean, default=0)
     low_bar = Column(Boolean, default=0)
@@ -61,6 +61,7 @@ class EXERCISES_CALISTHENICS(CUSTOMBASE):
     support = Column(Boolean, default=0)
 
 
+"""
 class EXERCISES_CORE(CUSTOMBASE):
     __tablename__ = 'EXERCISES_CORE'
     
@@ -85,6 +86,7 @@ class EXERCISES_CORE(CUSTOMBASE):
     wall = Column(Boolean, default=0)
     rings = Column(Boolean, default=0)
     support = Column(Boolean, default=0)
+"""
 
 
 class EXERCISES_PARKOUR(CUSTOMBASE):

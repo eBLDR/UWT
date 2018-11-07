@@ -45,13 +45,19 @@ def read(table_name, filters=None):
     """
     session = SESSION()
     try:
-        table = getattr(MODELS, table_name)
-        buff = session.query(table)
+        if hasattr(MODELS, table_name):
+            table = getattr(MODELS, table_name)
+            buff = session.query(table)
+        else:
+            error_msg = 'Table {} does not exist.'.format(table_name)
+            raise AttributeError(error_msg)
         if filters:
-            buff = buff.filter_by(**filters)
+            if all([hasattr(table, column) for column in filters]):
+                buff = buff.filter_by(**filters)
+            else:
+                error_msg = 'Columns {} not found in table {}.'.format(filters, table_name)
+                raise AttributeError(error_msg)
         return buff.all()
-    except AttributeError:
-        logger.error('Table does not exist.')
     except Exception as exc:
         logger.error(exc)
     finally:
@@ -71,7 +77,7 @@ def update(record, new_data):
 @session_manager
 def delete(record):
     """
-    Delete a record from the database.
+    Delete an existing record from the database.
     :param record: SQLAlchemy object
     """
     session.delete(record)  # TODO: check scope
@@ -94,10 +100,11 @@ def get_elements(sphere=None):
     return read(table_name, filters=filters)
 
 
-def get_exercises_discipline(discipline, group=None):
-    table_name = 'EXERCISES_' + discipline.upper()
-    filters = {}
-    if group:
-        filters['group'] = group
-    return read(table_name, filters=filters)
+def get_disciplines():
+    table_name = 'DISCIPLINES'
+    return read(table_name)
 
+
+def get_exercises_discipline(discipline, filters=None):
+    table_name = 'EXERCISES_' + discipline.upper()
+    return read(table_name, filters=filters)
