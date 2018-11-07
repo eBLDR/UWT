@@ -38,6 +38,17 @@ class ELEMENTS(CUSTOMBASE):
     sphere = Column(String(32), nullable=False)
 
 
+class EXERCISES_ATHLETICS(CUSTOMBASE):
+    __tablename__ = 'EXERCISES_ATHLETICS'
+    
+    id = Column(Integer, primary_key=True)
+    group = Column(String(256), nullable=False)
+    variation = Column(String(256), nullable=False)
+    upper = Column(Boolean, default=0)
+    torso = Column(Boolean, default=0)
+    lower = Column(Boolean, default=0)
+
+
 class EXERCISES_CALISTHENICS(CUSTOMBASE):
     __tablename__ = 'EXERCISES_CALISTHENICS'
     
@@ -45,7 +56,11 @@ class EXERCISES_CALISTHENICS(CUSTOMBASE):
     group = Column(String(256), nullable=False)
     variation = Column(String(256), nullable=False)
     movement = Column(String(128))
+    target = variation = Column(String(256))
     level = Column(String(16))
+    level_breakthrough = Column(Boolean, default=0)
+    skill_static = Column(Boolean, default=0)
+    skill_dynamic = Column(Boolean, default=0)
     rep = Column(Boolean, default=0)
     time = Column(Boolean, default=0)
     floor = Column(Boolean, default=0)
