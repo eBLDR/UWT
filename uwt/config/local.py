@@ -8,9 +8,9 @@ SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{user}:{passwd}@{host}/{schema}?chars
 # Flask App settings
 APP_HOST = '127.0.0.1'
 APP_PORT = 5000
+APP_SECRET_KEY = 'key'
 APP_TEMPLATES_FOLDER = 'templates'
 APP_API_URL_PREFIX = '/api'
-
 
 # Logger settings
 LOG_PATH = 'log/log.log'
