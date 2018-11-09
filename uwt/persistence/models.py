@@ -2,7 +2,7 @@
 from sqlalchemy.ext.declarative import declarative_base
 
 # Data types
-from sqlalchemy import Boolean, Column, Integer, String
+from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String
 
 
 BASE = declarative_base()
@@ -56,7 +56,7 @@ class EXERCISES_CALISTHENICS(CUSTOMBASE):
     group = Column(String(256), nullable=False)
     variation = Column(String(256), nullable=False)
     movement = Column(String(128))
-    target = variation = Column(String(256))
+    target = Column(String(256))
     level = Column(String(16))
     level_breakthrough = Column(Boolean, default=0)
     skill_static = Column(Boolean, default=0)
@@ -76,34 +76,6 @@ class EXERCISES_CALISTHENICS(CUSTOMBASE):
     support = Column(Boolean, default=0)
 
 
-"""
-class EXERCISES_CORE(CUSTOMBASE):
-    __tablename__ = 'EXERCISES_CORE'
-    
-    id = Column(Integer, primary_key=True)
-    group = Column(String(256), nullable=False)
-    variation = Column(String(256), nullable=False)
-    level = Column(String(16))
-    rep = Column(Boolean, default=0)
-    time = Column(Boolean, default=0)
-    upper = Column(Boolean, default=0)
-    lower = Column(Boolean, default=0)
-    oblique = Column(Boolean, default=0)
-    time = Column(Boolean, default=0)
-    ground = Column(Boolean, default=0)
-    high_bar = Column(Boolean, default=0)
-    medium_bar = Column(Boolean, default=0)
-    low_bar = Column(Boolean, default=0)
-    parallel_bars = Column(Boolean, default=0)
-    parallettes = Column(Boolean, default=0)
-    swedish_ladder = Column(Boolean, default=0)
-    vertical_bar = Column(Boolean, default=0)
-    wall = Column(Boolean, default=0)
-    rings = Column(Boolean, default=0)
-    support = Column(Boolean, default=0)
-"""
-
-
 class EXERCISES_PARKOUR(CUSTOMBASE):
     __tablename__ = 'EXERCISES_PARKOUR'
     
@@ -121,4 +93,10 @@ class USERS(CUSTOMBASE):
     password = Column(String(256), nullable=False)
 
 
-# Tricking exercises missing
+class USERS_LOGS(CUSTOMBASE):
+    __tablename__ = 'USERS_LOGS'
+
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('USERS.id'), nullable=False)
+    timestamp = Column(DateTime, nullable=False)
+    event = Column(String(64), nullable=False)
