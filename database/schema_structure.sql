@@ -60,3 +60,11 @@ CREATE TABLE `USERS` (
     `password` VARCHAR(256) NOT NULL
 );
 
+CREATE TABLE `USERS_LOGS` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `user_id` INT NOT NULL,
+    `timestamp` TIMESTAMP NOT NULL,
+    `event` VARCHAR(64) NOT NULL,
+    FOREIGN KEY (`user_id`) REFERENCES `USERS`(`id`)
+);
+
