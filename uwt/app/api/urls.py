@@ -1,3 +1,5 @@
+from functools import wraps
+
 from flask import request, url_for
 
 from uwt.app.api import API
@@ -23,27 +25,41 @@ def echo():
 # ERROR HANDLERS
 @API.errorhandler(404)
 def not_found(error=None):
-    return '{} - 404 - Not found'.format(request.url)
+    return '{} - 404 - Not found\nERROR: {}'.format(request.url, error)
+
+
+# RESPONSE MANAGER
+def response_manager(f):
+    """
+    Manages API response.
+    :param f: function to be wrapped
+    """
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        try:
+            buff = f(*args, **kwargs)
+            return utils.to_json(buff)
+        except Exception as exc:
+            return not_found(error=exc)
+    return wrapper
 
 
 # API ENDPOINTS
 @API.route('/elements', methods=['GET'])
 @API.route('/elements/<sphere>', methods=['GET'])
+@response_manager
 def elements(sphere=None):
-    buff = persistence.get_elements(sphere=sphere)
-    return utils.to_json(buff)
+    return persistence.get_elements(sphere=sphere)
 
 
 @API.route('/disciplines', methods=['GET'])
-def elements():
-    buff = persistence.get_disciplines()
-    return utils.to_json(buff)
+@response_manager
+def disciplines():
+    return persistence.get_disciplines()
 
 
 @API.route('/exercises/<discipline>', methods=['GET'])
+@response_manager
 def exercises_discipline(discipline):
-    # TODO: check valid uri to avoid db error when querying
-    # if discipline not in persistence.get_disciplines():
-        # return not_found()
-    buff = persistence.get_exercises_discipline(discipline, filters=request.args)
-    return utils.to_json(buff)
+    # TODO: check valid uri to avoid db error when querying ?
+    return persistence.get_exercises_discipline(discipline, filters=request.args)
