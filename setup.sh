@@ -4,7 +4,7 @@
 rm  -v -rf .venv
 
 # Create a new virtualenv
-virtualenv .venv
+virtualenv -p /usr/bin/python3 .venv
 
 # Activate virtualenv
 source .venv/bin/activate
