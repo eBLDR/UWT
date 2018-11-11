@@ -20,4 +20,3 @@ def get_environment():
 
 
 ENVIRONMENT = get_environment()
-
