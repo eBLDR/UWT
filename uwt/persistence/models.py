@@ -42,8 +42,8 @@ class EXERCISES_ATHLETICS(CUSTOMBASE):
     __tablename__ = 'EXERCISES_ATHLETICS'
     
     id = Column(Integer, primary_key=True)
-    group = Column(String(256), nullable=False)
-    variation = Column(String(256), nullable=False)
+    group = Column(String(128), nullable=False)
+    variation = Column(String(128), nullable=False)
     upper = Column(Boolean, default=0)
     torso = Column(Boolean, default=0)
     lower = Column(Boolean, default=0)
@@ -53,11 +53,11 @@ class EXERCISES_CALISTHENICS(CUSTOMBASE):
     __tablename__ = 'EXERCISES_CALISTHENICS'
     
     id = Column(Integer, primary_key=True)
-    group = Column(String(256), nullable=False)
-    variation = Column(String(256), nullable=False)
+    group = Column(String(128), nullable=False)
+    variation = Column(String(128), nullable=False)
     movement = Column(String(128))
     target = Column(String(256))
-    level = Column(String(16))
+    level = Column(String(8))
     level_breakthrough = Column(Boolean, default=0)
     skill_static = Column(Boolean, default=0)
     skill_dynamic = Column(Boolean, default=0)
@@ -80,17 +80,17 @@ class EXERCISES_PARKOUR(CUSTOMBASE):
     __tablename__ = 'EXERCISES_PARKOUR'
     
     id = Column(Integer, primary_key=True)
-    group = Column(String(256), nullable=False)
-    variation = Column(String(256), nullable=False)
-    level = Column(String(16))
+    group = Column(String(128), nullable=False)
+    variation = Column(String(128), nullable=False)
+    level = Column(String(8))
 
 
 class USERS(CUSTOMBASE):
     __tablename__ = 'USERS'
     
     id = Column(Integer, primary_key=True)
-    username = Column(String(256), nullable=False, unique=True)
-    password = Column(String(256), nullable=False)
+    username = Column(String(64), nullable=False, unique=True)
+    password = Column(String(64), nullable=False)
 
 
 class USERS_LOGS(CUSTOMBASE):
