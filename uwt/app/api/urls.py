@@ -61,5 +61,4 @@ def disciplines():
 @API.route('/exercises/<discipline>', methods=['GET'])
 @response_manager
 def exercises_discipline(discipline):
-    # TODO: check valid uri to avoid db error when querying ?
     return persistence.get_exercises_discipline(discipline, filters=request.args)

@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from uwt.persistence import session_manager as s_m
+from uwt.persistence import session_manager
 
 
 # QUERIES
@@ -9,7 +9,7 @@ def get_user_by_username(username):
     filters = {}
     if username:
         filters['username'] = username
-    return s_m.read(table_name, filters=filters).first()
+    return session_manager.read(table_name, filters=filters).first()
 
 
 def get_elements(sphere=None):
@@ -17,17 +17,17 @@ def get_elements(sphere=None):
     filters = {}
     if sphere:
         filters['sphere'] = sphere
-    return s_m.read(table_name, filters=filters).all()
+    return session_manager.read(table_name, filters=filters).all()
 
 
 def get_disciplines():
     table_name = 'DISCIPLINES'
-    return s_m.read(table_name).all()
+    return session_manager.read(table_name).all()
 
 
 def get_exercises_discipline(discipline, filters=None):
     table_name = 'EXERCISES_' + discipline.upper()
-    return s_m.read(table_name, filters=filters).all()
+    return session_manager.read(table_name, filters=filters).all()
 
 
 # DATA PERSISTENCE
@@ -39,4 +39,4 @@ def register_user_log(username, event):
         'timestamp': datetime.utcnow(),
         'event': event
     }
-    s_m.create(table_name, values)
+    session_manager.create(table_name, values)

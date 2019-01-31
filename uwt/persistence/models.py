@@ -83,6 +83,7 @@ class EXERCISES_PARKOUR(CUSTOMBASE):
     group = Column(String(128), nullable=False)
     variation = Column(String(128), nullable=False)
     level = Column(String(8))
+    freerunning = Column(Boolean, default=0)
 
 
 class USERS(CUSTOMBASE):
