@@ -1,4 +1,4 @@
-#! -*- coding: utf8 -*-
+# -*- coding: utf8 -*-
 from flask import Flask, session
 
 from uwt.config import settings

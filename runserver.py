@@ -1,5 +1,5 @@
 #! /usr/bin/python3
-#! -*- coding: utf8 -*-
+# -*- coding: utf8 -*-
 
 from uwt.config import settings
 from uwt.app import APP
