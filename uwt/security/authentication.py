@@ -3,7 +3,7 @@ import hashlib
 from uwt.persistence import persistence
 
 
-def authenticate(username, password):
+def authenticate_user(username, password):
     """
     Authenticate user credentials.
     :param username: user name input

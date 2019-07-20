@@ -16,9 +16,9 @@ def _():
 @API.route('/echo', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def echo():
     data = {
-	'status_code': 200,
+        'status_code': 200,
         'method': request.method
-        }
+    }
     return utils.to_json(data)
 
 
@@ -34,6 +34,7 @@ def response_manager(f):
     Manages API response.
     :param f: function to be wrapped
     """
+
     @wraps(f)
     def wrapper(*args, **kwargs):
         try:
@@ -41,6 +42,7 @@ def response_manager(f):
             return utils.to_json(buff)
         except Exception as exc:
             return not_found(error=exc)
+
     return wrapper
 
 
@@ -61,4 +63,6 @@ def disciplines():
 @API.route('/exercises/<discipline>', methods=['GET'])
 @response_manager
 def exercises_discipline(discipline):
-    return persistence.get_exercises_discipline(discipline, filters=request.args)
+    return persistence.get_exercises_discipline(
+        discipline, filters=request.args
+    )

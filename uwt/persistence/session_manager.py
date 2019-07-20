@@ -6,7 +6,8 @@ from uwt.persistence.engine import SESSION
 MODELS = import_module('uwt.persistence.models')
 
 
-def session_manager(table_name, values=None, filters=None, create_=False, read_=False, update_=False, delete_=False):
+def session_manager(table_name, values=None, filters=None, create_=False,
+                    read_=False, update_=False, delete_=False):
     """
     Manages database connections.
     :param table_name: table's name to be accessed
@@ -33,12 +34,15 @@ def session_manager(table_name, values=None, filters=None, create_=False, read_=
             if filters:
                 buff = buff.filter_by(**filters)
             return buff
+
         if not read_:
             if create_:
                 record = table(**values)
                 session.add(record)
             if update_ or delete_:
-                buff = session_manager(table_name, filters=filters, read_=True).all()
+                buff = session_manager(
+                    table_name, filters=filters, read_=True
+                ).all()
                 if update_:
                     for record in buff:
                         record.update(values)
@@ -46,15 +50,17 @@ def session_manager(table_name, values=None, filters=None, create_=False, read_=
                     for record in buff:
                         session.delete(record)
             session.commit()
+
     except Exception as exc:
         logger.error(exc)
         if not read_:
             session.rollback()
         raise exc
+
     finally:
         session.close()
 
- 
+
 def validate_data(table_name, columns=None):
     """
     Validates data against database.
@@ -67,9 +73,13 @@ def validate_data(table_name, columns=None):
         else:
             error_msg = 'Table {} does not exist.'.format(table_name)
             raise AttributeError(error_msg)
+
         if columns and not all([hasattr(table, column) for column in columns]):
-            error_msg = 'Columns {} not found in table {}.'.format([col for col in columns], table_name)
+            error_msg = 'Columns {} not found in table {}.'.format(
+                [col for col in columns], table_name
+            )
             raise AttributeError(error_msg)
+
     except Exception as exc:
         logger.error(exc)
         raise exc
@@ -102,7 +112,9 @@ def update(table_name, filters, new_values):
     :param filters: filters for update
     :param new_values: values to be updated
     """
-    session_manager(table_name, filters=filters, values=new_values, update_=True)
+    session_manager(
+        table_name, filters=filters, values=new_values, update_=True
+    )
 
 
 def delete(table_name, filters):

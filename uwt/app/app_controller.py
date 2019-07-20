@@ -24,7 +24,7 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
         if username and password:
-            auth, reason = authentication.authenticate(username, password)
+            auth, reason = authentication.authenticate_user(username, password)
             if auth:
                 # Add username to session
                 session['username'] = username
@@ -51,4 +51,3 @@ def elements():
 @APP.route('/disciplines')
 def disciplines():
     return 'OK'
-
