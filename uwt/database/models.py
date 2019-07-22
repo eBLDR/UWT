@@ -15,9 +15,16 @@ class CUSTOMBASE(BASE):
         """
         This method populates a dictionary with the attributes : values.
         """
+        excluded_columns = ('id',)
+
         tmp = {}
+
         for i in self.__table__.columns:
+            if i.name in excluded_columns:
+                continue
+
             tmp[i.name] = getattr(self, i.name)
+
         return tmp
 
 
@@ -35,6 +42,7 @@ class ELEMENTS(CUSTOMBASE):
     id = Column(Integer, primary_key=True)
     name = Column(String(64), nullable=False)
     sphere = Column(String(32), nullable=False)
+    description = Column(String(1024))
 
 
 class EXERCISES_ATHLETICS(CUSTOMBASE):
@@ -43,9 +51,9 @@ class EXERCISES_ATHLETICS(CUSTOMBASE):
     id = Column(Integer, primary_key=True)
     group = Column(String(128), nullable=False)
     variation = Column(String(128), nullable=False)
-    upper = Column(Boolean, default=0)
-    torso = Column(Boolean, default=0)
-    lower = Column(Boolean, default=0)
+    upper_body = Column(Boolean, default=0)
+    core = Column(Boolean, default=0)
+    lower_body = Column(Boolean, default=0)
 
 
 class EXERCISES_CALISTHENICS(CUSTOMBASE):
@@ -74,6 +82,27 @@ class EXERCISES_CALISTHENICS(CUSTOMBASE):
     rings = Column(Boolean, default=0)
     support = Column(Boolean, default=0)
     description = Column(String(1024))
+
+    def to_dict(self):
+        equipment_list = [
+            'floor', 'high_bar', 'medium_bar', 'low_bar', 'parallel_bars',
+            'parallettes', 'swedish_ladder', 'vertical_bar', 'wall',
+            'rings', 'support'
+        ]
+
+        tmp = super().to_dict()
+
+        equipment = {}
+
+        for key in equipment_list:
+            if tmp[key]:
+                equipment[key] = tmp[key]
+
+            del tmp[key]
+
+        tmp['equipment'] = equipment
+
+        return tmp
 
 
 class EXERCISES_PARKOUR(CUSTOMBASE):

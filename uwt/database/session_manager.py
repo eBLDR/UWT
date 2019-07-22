@@ -3,7 +3,7 @@ from importlib import import_module
 from uwt.helpers.logger import logger
 from uwt.database.engine import SESSION
 
-MODELS = import_module('uwt.persistence.models')
+MODELS = import_module('uwt.database.models')
 
 
 def session_manager(table_name, values=None, filters=None, create_=False,
