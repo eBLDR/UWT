@@ -1,7 +1,7 @@
 from flask import redirect, render_template, request, url_for
 
 from uwt.app import APP, session
-from uwt.persistence import persistence
+from uwt.database import persistence
 from uwt.security import authentication
 
 

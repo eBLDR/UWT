@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from uwt.persistence import session_manager
+from uwt.database import session_manager
 
 
 # QUERIES

@@ -4,7 +4,7 @@ from flask import request, url_for
 
 from uwt.app.api import API
 from uwt.helpers import utils
-from uwt.persistence import persistence
+from uwt.database import persistence
 
 
 # CHECKS

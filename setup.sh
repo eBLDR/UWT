@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 # Remove previous virtualenv
-rm  -v -rf .venv
+rm  -v -rf venv
 
 # Create a new virtualenv
-virtualenv -p /usr/bin/python3 .venv
+virtualenv -p /usr/bin/python3 venv
 
 # Activate virtualenv
-source .venv/bin/activate
+source venv/bin/activate
 
 # pip upgrade and setuptools
 pip install --no-cache-dir --upgrade pip setuptools

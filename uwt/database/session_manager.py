@@ -1,7 +1,7 @@
 from importlib import import_module
 
 from uwt.helpers.logger import logger
-from uwt.persistence.engine import SESSION
+from uwt.database.engine import SESSION
 
 MODELS = import_module('uwt.persistence.models')
 

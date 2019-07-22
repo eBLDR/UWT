@@ -1,4 +1,4 @@
-#! /usr/bin/python3
+#!/venv/bin/python
 # -*- coding: utf8 -*-
 
 from uwt.config import settings

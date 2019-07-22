@@ -1,6 +1,6 @@
 import hashlib
 
-from uwt.persistence import persistence
+from uwt.database import persistence
 
 
 def authenticate_user(username, password):

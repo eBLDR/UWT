@@ -56,11 +56,11 @@ class EXERCISES_CALISTHENICS(CUSTOMBASE):
     variation = Column(String(128), nullable=False)
     movement = Column(String(128))
     target = Column(String(256))
-    level = Column(String(8))
+    level = Column(Integer)
     level_breakthrough = Column(Boolean, default=0)
     skill_static = Column(Boolean, default=0)
     skill_dynamic = Column(Boolean, default=0)
-    rep = Column(Boolean, default=0)
+    repetition = Column(Boolean, default=0)
     time = Column(Boolean, default=0)
     floor = Column(Boolean, default=0)
     high_bar = Column(Boolean, default=0)
@@ -73,6 +73,7 @@ class EXERCISES_CALISTHENICS(CUSTOMBASE):
     wall = Column(Boolean, default=0)
     rings = Column(Boolean, default=0)
     support = Column(Boolean, default=0)
+    description = Column(String(1024))
 
 
 class EXERCISES_PARKOUR(CUSTOMBASE):
@@ -81,7 +82,7 @@ class EXERCISES_PARKOUR(CUSTOMBASE):
     id = Column(Integer, primary_key=True)
     group = Column(String(128), nullable=False)
     variation = Column(String(128), nullable=False)
-    level = Column(String(8))
+    level = Column(Integer)
     freerunning = Column(Boolean, default=0)
 
 
